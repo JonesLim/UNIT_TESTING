@@ -24,6 +24,11 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
 
+    unit-test:
+      executor:
+        - image: android/android:api-30
+        
+
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
