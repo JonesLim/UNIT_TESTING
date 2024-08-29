@@ -11,19 +11,18 @@ jobs:
     run-unit-test:
       executor:
         name: android/android-docker
-        tag: 2022.08.1
+        tag: 2024.08
       steps:
         - checkout
         - android/restore-gradle-cache
         - android/run-tests:
-          test-command: ./gradlew testDebug
+          test-command: ./gradlew testDebugUnitTest
         - android/save-gradle-cache
 
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  say-hello-workflow: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  build-and-test:
     jobs:
         - run-unit-test
