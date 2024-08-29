@@ -24,10 +24,17 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
 
-    unit-test:
+    run-unit-test:
       executor:
-        - image: android/android:api-30
-        
+        name: android/android-docker
+        tag: 2022.08.1
+      steps:
+        - checkout
+        - android/restore-gradle-cache
+        - android/run-tests:
+          test-command: ./gradlew testDebug
+        - android/save-gradle-cache
+
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
@@ -36,3 +43,4 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - say-hello
+      - run-unit-test
