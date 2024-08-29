@@ -4,19 +4,19 @@ orbs:
   android: circleci/android@2.5.0
 
 jobs:
-  
-    run-unit-test:
-      executor:
-        name: android/android-docker
-        tag: "2024.08"
-      steps:
-        - checkout
-        - android/restore-gradle-cache
-        - android/run-tests:
-          test-command: ./gradlew testDebugUnitTest
-        - android/save-gradle-cache
+  run-unit-test:
+    executor:
+      name: android/android-docker
+      tag: "2024.08"
+    steps:
+      - checkout
+      - android/restore-gradle-cache
+      - run:
+          name: Run Unit Tests
+          command: ./gradlew testDebugUnitTest
+      - android/save-gradle-cache
 
 workflows:
   build-and-test:
     jobs:
-        - run-unit-test
+      - run-unit-test
